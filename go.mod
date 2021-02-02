@@ -7,7 +7,7 @@ require (
 	github.com/boltdb/bolt v1.3.1 // indirect
 	github.com/hashicorp/go-hclog v0.9.1
 	github.com/hashicorp/go-msgpack v0.5.5
-	github.com/hashicorp/raft-boltdb v0.0.0-20171010151810-6e5ba93211ea
+	github.com/jysword/raft-boltdb v0.0.0-20210202055740-c981b4e44c2f
 	github.com/stretchr/testify v1.3.0
 	golang.org/x/sys v0.0.0-20210124154548-22da62e12c0c // indirect
 )
