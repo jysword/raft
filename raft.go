@@ -753,6 +753,8 @@ func (r *Raft) leaderLoop() {
 			// Group commit, gather all the ready commits
 			ready := []*logFuture{newLog}
 			n := 0
+			mi := time.Now().UnixNano()/1000
+			fmt.Printf("========== leadloop applych before commit loop: %d | %d \n", mi, mi - st)
 		GROUP_COMMIT_LOOP:
 			for i := 0; i < r.conf.MaxAppendEntries; i++ {
 				n++
@@ -764,6 +766,8 @@ func (r *Raft) leaderLoop() {
 				}
 			}
 
+			ds := time.Now().UnixNano()/1000
+			fmt.Printf("========== leadloop applych stepdown: %v,  before dispatch: %d | %d \n", stepDown, ds, ds - mi)
 			// Dispatch the logs
 			if stepDown {
 				// we're in the process of stepping down as leader, don't process anything new
@@ -775,7 +779,7 @@ func (r *Raft) leaderLoop() {
 			}
 
 			ed := time.Now().UnixNano()/1000
-			fmt.Printf("========== leadloop applych: %d ---- %d ---- commit_loop_count: %d \n", ed, ed - st, n)
+			fmt.Printf("========== leadloop applych: %d ---- %d ---- commit_loop_count: %d \n", ed, ed - ds, n)
 		case <-lease:
 			// Check if we've exceeded the lease, potentially stepping down
 			maxDiff := r.checkLeaderLease()
