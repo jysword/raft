@@ -743,8 +743,6 @@ func (r *Raft) leaderLoop() {
 			b.respond(ErrCantBootstrap)
 
 		case newLog := <-r.applyCh:
-			st := time.Now().UnixNano()/1000
-			fmt.Printf("========== leadloop applych start: %d \n", st)
 			if r.getLeadershipTransferInProgress() {
 				r.logger.Debug(ErrLeadershipTransferInProgress.Error())
 				newLog.respond(ErrLeadershipTransferInProgress)
@@ -752,12 +750,8 @@ func (r *Raft) leaderLoop() {
 			}
 			// Group commit, gather all the ready commits
 			ready := []*logFuture{newLog}
-			n := 0
-			mi := time.Now().UnixNano()/1000
-			fmt.Printf("========== leadloop applych before commit loop: %d | %d \n", mi, mi - st)
 		GROUP_COMMIT_LOOP:
 			for i := 0; i < r.conf.MaxAppendEntries; i++ {
-				n++
 				select {
 				case newLog := <-r.applyCh:
 					ready = append(ready, newLog)
@@ -766,8 +760,6 @@ func (r *Raft) leaderLoop() {
 				}
 			}
 
-			ds := time.Now().UnixNano()/1000
-			fmt.Printf("========== leadloop applych stepdown: %v,  before dispatch: %d | %d \n", stepDown, ds, ds - mi)
 			// Dispatch the logs
 			if stepDown {
 				// we're in the process of stepping down as leader, don't process anything new
@@ -778,8 +770,6 @@ func (r *Raft) leaderLoop() {
 				r.dispatchLogs(ready)
 			}
 
-			ed := time.Now().UnixNano()/1000
-			fmt.Printf("========== leadloop applych: %d ---- %d ---- commit_loop_count: %d \n", ed, ed - ds, n)
 		case <-lease:
 			// Check if we've exceeded the lease, potentially stepping down
 			maxDiff := r.checkLeaderLease()
@@ -1075,7 +1065,6 @@ func (r *Raft) appendConfigurationEntry(future *configurationChangeFuture) {
 // dispatchLog is called on the leader to push a log to disk, mark it
 // as inflight and begin replication of it.
 func (r *Raft) dispatchLogs(applyLogs []*logFuture) {
-	st := time.Now().UnixNano()/1000
 	now := time.Now()
 	defer metrics.MeasureSince([]string{"raft", "leader", "dispatchLog"}, now)
 
@@ -1086,7 +1075,6 @@ func (r *Raft) dispatchLogs(applyLogs []*logFuture) {
 	logs := make([]*Log, n)
 	metrics.SetGauge([]string{"raft", "leader", "dispatchNumLogs"}, float32(n))
 
-	md := time.Now().UnixNano()/1000
 	for idx, applyLog := range applyLogs {
 		applyLog.dispatch = now
 		lastIndex++
@@ -1096,7 +1084,6 @@ func (r *Raft) dispatchLogs(applyLogs []*logFuture) {
 		r.leaderState.inflight.PushBack(applyLog)
 	}
 
-	ds := time.Now().UnixNano()/1000
 	// Write the log entry locally
 	if err := r.logs.StoreLogs(logs); err != nil {
 		r.logger.Error("failed to commit logs", "error", err)
@@ -1106,20 +1093,14 @@ func (r *Raft) dispatchLogs(applyLogs []*logFuture) {
 		r.setState(Follower)
 		return
 	}
-	ed := time.Now().UnixNano()/1000
-	r.leaderState.commitment.match(r.localID, lastIndex)
 
-	ed2 := time.Now().UnixNano()/1000
 	// Update the last log since it's on disk now
 	r.setLastLog(lastIndex, term)
-	ed3 := time.Now().UnixNano()/1000
 
 	// Notify the replicators of the new log
 	for _, f := range r.leaderState.replState {
 		asyncNotifyCh(f.triggerCh)
 	}
-	ed4 := time.Now().UnixNano()/1000
-	fmt.Printf("+++++++++++++++++++++ dispatch log: %d, %d, %d, %d, %d, %d +++++++++++++\n", md-st, ds-md, ed-ds, ed2-ed, ed3-ed2, ed4-ed3)
 }
 
 // processLogs is used to apply all the committed entries that haven't been
