@@ -68,7 +68,7 @@ This is a non-exhaustive list, but we came up with a few things:
 - Servers will have to search their snapshot and log to find the committed configuration and the latest configuration on startup.
 - Bootstrap will no longer use `peers.json` but should initialize the log or snapshot with an application-provided configuration entry.
 - Snapshots should store the index of their configuration along with the configuration itself. In my experience with LogCabin, the original log index of the configuration is very useful to include in debug log messages.
-- As noted in hashicorp/raft#84, configuration change requests should come in via a separate channel, and one may not proceed until the last has been committed.
+- As noted in jysword/raft#84, configuration change requests should come in via a separate channel, and one may not proceed until the last has been committed.
 - As to deciding when a log is sufficiently caught up, implementing a sophisticated algorithm *is* something that can be done in a separate PR. An easy and decent placeholder is: once the staging server has reached 95% of the leader's commit index, promote it.
 
 ## Feedback

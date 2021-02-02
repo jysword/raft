@@ -5,7 +5,7 @@ import (
 	"io"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/jysword/go-hclog"
 )
 
 // ProtocolVersion is the version of the protocol (which includes RPC messages

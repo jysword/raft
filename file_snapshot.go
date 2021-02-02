@@ -16,7 +16,7 @@ import (
 	"strings"
 	"time"
 
-	hclog "github.com/hashicorp/go-hclog"
+	hclog "github.com/jysword/go-hclog"
 )
 
 const (

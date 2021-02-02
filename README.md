@@ -1,4 +1,4 @@
-raft [![CircleCI](https://circleci.com/gh/hashicorp/raft.svg?style=svg)](https://circleci.com/gh/hashicorp/raft)
+raft [![CircleCI](https://circleci.com/gh/jysword/raft.svg?style=svg)](https://circleci.com/gh/jysword/raft)
 ====
 
 raft is a [Go](http://www.golang.org) library that manages a replicated
@@ -22,19 +22,19 @@ go version
 
 ## Documentation
 
-For complete documentation, see the associated [Godoc](http://godoc.org/github.com/hashicorp/raft).
+For complete documentation, see the associated [Godoc](http://godoc.org/github.com/jysword/raft).
 
 To prevent complications with cgo, the primary backend `MDBStore` is in a separate repository,
-called [raft-mdb](http://github.com/hashicorp/raft-mdb). That is the recommended implementation
+called [raft-mdb](http://github.com/jysword/raft-mdb). That is the recommended implementation
 for the `LogStore` and `StableStore`.
 
 A pure Go backend using [BoltDB](https://github.com/boltdb/bolt) is also available called
-[raft-boltdb](https://github.com/hashicorp/raft-boltdb). It can also be used as a `LogStore`
+[raft-boltdb](https://github.com/jysword/raft-boltdb). It can also be used as a `LogStore`
 and `StableStore`.
 
 ## Tagged Releases
 
-As of September 2017, HashiCorp will start using tags for this library to clearly indicate
+As of September 2017, jysword will start using tags for this library to clearly indicate
 major version updates. We recommend you vendor your application's dependency on this library.
 
 * v0.1.0 is the original stable version of the library that was in master and has been maintained
@@ -44,7 +44,7 @@ with no breaking API changes. This was in use by Consul prior to version 0.7.0.
 manages server identities using a UUID, so introduces some breaking API changes. It also versions
 the Raft protocol, and requires some special steps when interoperating with Raft servers running
 older versions of the library (see the detailed comment in config.go about version compatibility).
-You can reference https://github.com/hashicorp/consul/pull/2222 for an idea of what was required
+You can reference https://github.com/jysword/consul/pull/2222 for an idea of what was required
 to port Consul to these new interfaces.
 
     This version includes some new features as well, including non voting servers, a new address

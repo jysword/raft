@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/hashicorp/raft"
+	"github.com/jysword/raft"
 )
 
 // 5 node cluster

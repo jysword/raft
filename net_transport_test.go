@@ -3,7 +3,7 @@ package raft
 import (
 	"bytes"
 	"fmt"
-	"github.com/hashicorp/go-hclog"
+	"github.com/jysword/go-hclog"
 	"github.com/stretchr/testify/require"
 	"net"
 	"reflect"

@@ -9,7 +9,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/hashicorp/go-hclog"
+	"github.com/jysword/go-hclog"
 
 	"github.com/armon/go-metrics"
 )

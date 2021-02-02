@@ -2,7 +2,7 @@ package raft
 
 import (
 	"errors"
-	"github.com/hashicorp/go-hclog"
+	"github.com/jysword/go-hclog"
 	"io"
 	"net"
 	"time"
