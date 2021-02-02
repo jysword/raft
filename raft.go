@@ -551,12 +551,15 @@ func (r *Raft) leaderLoop() {
 	lease := time.After(r.conf.LeaderLeaseTimeout)
 
 	for r.getState() == Leader {
+		st := time.Now().UnixNano()/1000
 		select {
 		case rpc := <-r.rpcCh:
 			r.processRPC(rpc)
+			fmt.Printf("========== leadloop rpcCh: %d ---- %d ----", st, time.Now().UnixNano()/1000 - st)
 
 		case <-r.leaderState.stepDown:
 			r.setState(Follower)
+			fmt.Printf("========== leadloop stepdown: %d ---- %d ----", st, time.Now().UnixNano()/1000 - st)
 
 		case future := <-r.leadershipTransferCh:
 			if r.getLeadershipTransferInProgress() {
@@ -626,6 +629,7 @@ func (r *Raft) leaderLoop() {
 			}
 
 			go r.leadershipTransfer(*id, *address, state, stopCh, doneCh)
+			fmt.Printf("========== leadloop leadship transfer: %d ---- %d ----", st, time.Now().UnixNano()/1000 - st)
 
 		case <-r.leaderState.commitCh:
 			// Process the newly committed entries
@@ -688,6 +692,7 @@ func (r *Raft) leaderLoop() {
 					r.setState(Follower)
 				}
 			}
+			fmt.Printf("========== leadloop commit: %d ---- %d ----", st, time.Now().UnixNano()/1000 - st)
 
 		case v := <-r.verifyCh:
 			if v.quorumSize == 0 {
@@ -712,6 +717,7 @@ func (r *Raft) leaderLoop() {
 				}
 				v.respond(nil)
 			}
+			fmt.Printf("========== leadloop verify: %d ---- %d ----", st, time.Now().UnixNano()/1000 - st)
 
 		case future := <-r.userRestoreCh:
 			if r.getLeadershipTransferInProgress() {
@@ -721,6 +727,7 @@ func (r *Raft) leaderLoop() {
 			}
 			err := r.restoreUserSnapshot(future.meta, future.reader)
 			future.respond(err)
+			fmt.Printf("========== leadloop restore: %d ---- %d ----", st, time.Now().UnixNano()/1000 - st)
 
 		case future := <-r.configurationsCh:
 			if r.getLeadershipTransferInProgress() {
@@ -730,6 +737,7 @@ func (r *Raft) leaderLoop() {
 			}
 			future.configurations = r.configurations.Clone()
 			future.respond(nil)
+			fmt.Printf("========== leadloop configuration: %d ---- %d ----", st, time.Now().UnixNano()/1000 - st)
 
 		case future := <-r.configurationChangeChIfStable():
 			if r.getLeadershipTransferInProgress() {
@@ -738,9 +746,11 @@ func (r *Raft) leaderLoop() {
 				continue
 			}
 			r.appendConfigurationEntry(future)
+			fmt.Printf("========== leadloop configuration changech: %d ---- %d ----", st, time.Now().UnixNano()/1000 - st)
 
 		case b := <-r.bootstrapCh:
 			b.respond(ErrCantBootstrap)
+			fmt.Printf("========== leadloop configuration bootstrap: %d ---- %d ----", st, time.Now().UnixNano()/1000 - st)
 
 		case newLog := <-r.applyCh:
 			if r.getLeadershipTransferInProgress() {
@@ -770,6 +780,7 @@ func (r *Raft) leaderLoop() {
 				r.dispatchLogs(ready)
 			}
 
+			fmt.Printf("========== leadloop applych: %d ---- %d ----", st, time.Now().UnixNano()/1000 - st)
 		case <-lease:
 			// Check if we've exceeded the lease, potentially stepping down
 			maxDiff := r.checkLeaderLease()
@@ -783,6 +794,7 @@ func (r *Raft) leaderLoop() {
 
 			// Renew the lease timer
 			lease = time.After(checkInterval)
+			fmt.Printf("========== leadloop lease: %d ---- %d ----", st, time.Now().UnixNano()/1000 - st)
 
 		case <-r.shutdownCh:
 			return

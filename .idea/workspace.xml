@@ -27,18 +27,9 @@
   <component name="ChangeListManager">
     <list default="true" id="6bbdb6b1-7d52-42c3-9338-5ff9981335f7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api.go" beforeDir="false" afterPath="$PROJECT_DIR$/api.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_snapshot.go" beforeDir="false" afterPath="$PROJECT_DIR$/file_snapshot.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fuzzy/node.go" beforeDir="false" afterPath="$PROJECT_DIR$/fuzzy/node.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/fuzzy/transport.go" beforeDir="false" afterPath="$PROJECT_DIR$/fuzzy/transport.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/integ_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/integ_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net_transport.go" beforeDir="false" afterPath="$PROJECT_DIR$/net_transport.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/net_transport_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/net_transport_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/raft.go" beforeDir="false" afterPath="$PROJECT_DIR$/raft.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tcp_transport.go" beforeDir="false" afterPath="$PROJECT_DIR$/tcp_transport.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing.go" beforeDir="false" afterPath="$PROJECT_DIR$/testing.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util.go" beforeDir="false" afterPath="$PROJECT_DIR$/util.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,9 +78,9 @@
     <integration-enabled>true</integration-enabled>
   </component>
   <component name="WindowStateProjectService">
-    <state x="662" y="252" width="1116" height="594" key="find.popup" timestamp="1612236414505">
+    <state x="662" y="252" width="1116" height="594" key="find.popup" timestamp="1612236448054">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="662" y="252" width="1116" height="594" key="find.popup/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612236414505" />
+    <state x="662" y="252" width="1116" height="594" key="find.popup/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1612236448054" />
   </component>
 </project>
