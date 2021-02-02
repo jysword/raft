@@ -5,14 +5,14 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
-	"github.com/jysword/go-hclog"
+	"github.com/hashicorp/go-hclog"
 	"io"
 	"os"
 	"path/filepath"
 	"sync"
 	"time"
 
-	"github.com/jysword/go-msgpack/codec"
+	"github.com/hashicorp/go-msgpack/codec"
 	"github.com/jysword/raft"
 )
 

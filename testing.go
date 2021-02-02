@@ -12,8 +12,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jysword/go-hclog"
-	"github.com/jysword/go-msgpack/codec"
+	"github.com/hashicorp/go-hclog"
+	"github.com/hashicorp/go-msgpack/codec"
 )
 
 var (

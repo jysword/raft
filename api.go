@@ -11,7 +11,7 @@ import (
 	"time"
 
 	metrics "github.com/armon/go-metrics"
-	hclog "github.com/jysword/go-hclog"
+	hclog "github.com/hashicorp/go-hclog"
 )
 
 const (

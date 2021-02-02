@@ -5,9 +5,9 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/jysword/go-hclog"
+	"github.com/hashicorp/go-hclog"
 	"github.com/jysword/raft"
-	rdb "github.com/jysword/raft-boltdb"
+	rdb "github.com/hashicorp/raft-boltdb"
 )
 
 type raftNode struct {

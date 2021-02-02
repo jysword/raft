@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jysword/go-hclog"
+	"github.com/hashicorp/go-hclog"
 )
 
 // CheckInteg will skip a test if integration testing is not enabled.

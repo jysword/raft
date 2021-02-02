@@ -5,14 +5,14 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/jysword/go-hclog"
+	"github.com/hashicorp/go-hclog"
 	"io"
 	"net"
 	"os"
 	"sync"
 	"time"
 
-	"github.com/jysword/go-msgpack/codec"
+	"github.com/hashicorp/go-msgpack/codec"
 )
 
 const (
