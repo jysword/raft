@@ -1075,6 +1075,7 @@ func (r *Raft) appendConfigurationEntry(future *configurationChangeFuture) {
 // dispatchLog is called on the leader to push a log to disk, mark it
 // as inflight and begin replication of it.
 func (r *Raft) dispatchLogs(applyLogs []*logFuture) {
+	st := time.Now().UnixNano()/1000
 	now := time.Now()
 	defer metrics.MeasureSince([]string{"raft", "leader", "dispatchLog"}, now)
 
@@ -1085,6 +1086,7 @@ func (r *Raft) dispatchLogs(applyLogs []*logFuture) {
 	logs := make([]*Log, n)
 	metrics.SetGauge([]string{"raft", "leader", "dispatchNumLogs"}, float32(n))
 
+	md := time.Now().UnixNano()/1000
 	for idx, applyLog := range applyLogs {
 		applyLog.dispatch = now
 		lastIndex++
@@ -1094,6 +1096,7 @@ func (r *Raft) dispatchLogs(applyLogs []*logFuture) {
 		r.leaderState.inflight.PushBack(applyLog)
 	}
 
+	ds := time.Now().UnixNano()/1000
 	// Write the log entry locally
 	if err := r.logs.StoreLogs(logs); err != nil {
 		r.logger.Error("failed to commit logs", "error", err)
@@ -1103,15 +1106,20 @@ func (r *Raft) dispatchLogs(applyLogs []*logFuture) {
 		r.setState(Follower)
 		return
 	}
+	ed := time.Now().UnixNano()/1000
 	r.leaderState.commitment.match(r.localID, lastIndex)
 
+	ed2 := time.Now().UnixNano()/1000
 	// Update the last log since it's on disk now
 	r.setLastLog(lastIndex, term)
+	ed3 := time.Now().UnixNano()/1000
 
 	// Notify the replicators of the new log
 	for _, f := range r.leaderState.replState {
 		asyncNotifyCh(f.triggerCh)
 	}
+	ed4 := time.Now().UnixNano()/1000
+	fmt.Printf("+++++++++++++++++++++ dispatch log: %d, %d, %d, %d, %d, %d +++++++++++++\n", md-st, ds-md, ed-ds, ed2-ed, ed3-ed2, ed4-ed3)
 }
 
 // processLogs is used to apply all the committed entries that haven't been
