@@ -105,6 +105,8 @@ func (r *Raft) runFSM() {
 		// Update the indexes
 		lastIndex = req.log.Index
 		lastTerm = req.log.Term
+
+		r.logger.Debug("--------------------- runFsm commitSingle", "lastIndex", lastIndex, "lastTerm", lastTerm)
 	}
 
 	commitBatch := func(reqs []*commitTuple) {
@@ -151,6 +153,7 @@ func (r *Raft) runFSM() {
 		// Update the indexes
 		lastIndex = lastBatchIndex
 		lastTerm = lastBatchTerm
+		r.logger.Debug("--------------------- runFsm commitBatch", "lastIndex", lastIndex, "lastTerm", lastTerm)
 
 		var i int
 		for _, req := range reqs {
@@ -189,6 +192,7 @@ func (r *Raft) runFSM() {
 		// Update the last index and term
 		lastIndex = meta.Index
 		lastTerm = meta.Term
+		r.logger.Debug("--------------------- runFsm restore", "lastIndex", lastIndex, "lastTerm", lastTerm)
 		req.respond(nil)
 	}
 
@@ -207,6 +211,7 @@ func (r *Raft) runFSM() {
 		// Respond to the request
 		req.index = lastIndex
 		req.term = lastTerm
+		r.logger.Debug("--------------------- runFsm snapshot", "lastIndex", lastIndex, "lastTerm", lastTerm)
 		req.snapshot = snap
 		req.respond(err)
 	}

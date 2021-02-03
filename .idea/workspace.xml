@@ -27,7 +27,8 @@
   <component name="ChangeListManager">
     <list default="true" id="6bbdb6b1-7d52-42c3-9338-5ff9981335f7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/raft.go" beforeDir="false" afterPath="$PROJECT_DIR$/raft.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/fsm.go" beforeDir="false" afterPath="$PROJECT_DIR$/fsm.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/snapshot.go" beforeDir="false" afterPath="$PROJECT_DIR$/snapshot.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +56,7 @@
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../raft-boltdb" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
@@ -71,6 +72,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>

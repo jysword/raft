@@ -110,6 +110,7 @@ func (r *Raft) shouldSnapshot() bool {
 		r.logger.Error("failed to get last log index", "error", err)
 		return false
 	}
+	r.logger.Debug("===================================== shouldSnapshot", "lastIdx", lastIdx, "lastSnap", lastSnap)
 
 	// Compare the delta to the threshold
 	delta := lastIdx - lastSnap
@@ -203,7 +204,7 @@ func (r *Raft) takeSnapshot() (string, error) {
 		return "", err
 	}
 
-	r.logger.Info("snapshot complete up to", "index", snapReq.index)
+	r.logger.Info("snapshot complete up to", "index", snapReq.index, "term", snapReq.term)
 	return sink.ID(), nil
 }
 
@@ -230,7 +231,7 @@ func (r *Raft) compactLogs(snapIdx uint64) error {
 	maxLog := min(snapIdx, lastLogIdx-r.conf.TrailingLogs)
 
 	if minLog > maxLog {
-		r.logger.Info("no logs to truncate")
+		r.logger.Info("no logs to truncate", "minLog", minLog, "maxLog", maxLog)
 		return nil
 	}
 
